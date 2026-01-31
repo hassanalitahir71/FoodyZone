@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import styled from "styled-components";
+import Food_Container from "./componenets/Food_Container";
 export const BASE_URL = "http://localhost:9000";
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
     };
 
     fetchdata();
-  }, []);
+   
+  }, []); 
 
   if (error) return <div>{error}</div>;
   if (loading) return <div>loading</div>;
@@ -43,7 +45,7 @@ function App() {
             <button>Dinner</button>
           </div>
         </Topcontainer>
-        <FoodContainer></FoodContainer>
+        <Food_Container   data={data}/>
       </Maincontainer>
     </>
   );
@@ -97,8 +99,4 @@ const Topcontainer = styled.section`
       cursor: pointer;
     }
   }
-`;
-const FoodContainer = styled.div`
-  background-image: url("/images/bg.png");
-  flex: 1;
 `;
