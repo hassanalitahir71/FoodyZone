@@ -43,6 +43,36 @@ function App() {
     }
   };
 
+  const categoryFun = (type) => {
+    if (type === "all") {
+      setFilterData(data);
+    } else {
+      const Filter = data?.filter((food) =>
+        food.type.toLowerCase().includes(type.toLowerCase()),
+      );
+      setFilterData(Filter);
+    }
+  };
+
+  const filterBtns = [
+    {
+      name: "All",
+      type: "all",
+    },
+    {
+      name: "Breakfast",
+      type: "breakfast",
+    },
+    {
+      name: "Lunch",
+      type: "lunch",
+    },
+    {
+      name: "Dinner",
+      type: "dinner",
+    },
+  ];
+
   if (error) return <div>{error}</div>;
   if (loading) return <div>loading</div>;
   return (
@@ -58,10 +88,11 @@ function App() {
             />
           </div>
           <div className="selection">
-            <button>All</button>
-            <button>BreakFast</button>
-            <button>Lunch</button>
-            <button>Dinner</button>
+            {filterBtns.map((value) => (
+              <button key={value.name} onClick={() => categoryFun(value.type)}>
+                {value.name}
+              </button>
+            ))}
           </div>
         </Topcontainer>
         <Food_Container data={FilterData} />
@@ -84,9 +115,10 @@ const Topcontainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #1c1b1b;
+  background: #000000;
   height: 130px;
   gap: 35px;
+  padding-top: 20px;
 
   .nav {
     display: flex;
@@ -116,6 +148,9 @@ const Topcontainer = styled.section`
       justify-content: center;
       align-items: center;
       cursor: pointer;
+      &:hover {
+        background-color: #950606;
+      }
     }
   }
 `;

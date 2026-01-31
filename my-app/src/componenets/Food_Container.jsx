@@ -75,26 +75,35 @@ const FoodCard = styled.div`
   padding: 8px;
 
   .food_info {
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 8px;
     h3 {
-      margin-top: 8px;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: Bold;
     }
     p {
-      margin-top: 4px;
       font-size: 12px;
+      padding-bottom: 20px;
     }
     button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
       font-size: 12px;
+      width: 60px;
       padding: 6px 10px;
       background: red;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+
+      &:hover {
+        background-color: #950606;
+      }
     }
   }
 `;
