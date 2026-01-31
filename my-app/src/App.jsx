@@ -9,6 +9,7 @@ function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [FilterData, setFilterData] = useState(null);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -18,6 +19,7 @@ function App() {
         const json = await response.json();
         console.log(json);
         setData(json);
+        setFilterData(json);
         setLoading(false);
       } catch (error) {
         setError("unable to fetch data");
@@ -25,8 +27,21 @@ function App() {
     };
 
     fetchdata();
-   
-  }, []); 
+  }, []);
+
+  const searchFun = (e) => {
+    const searchValue = e.target.value;
+    console.log(searchValue);
+
+    if (searchValue == "") {
+      setFilterData(data);
+    } else {
+      const Filter = data?.filter((food) =>
+        food.name.toLowerCase().includes(searchValue.toLowerCase()),
+      );
+      setFilterData(Filter);
+    }
+  };
 
   if (error) return <div>{error}</div>;
   if (loading) return <div>loading</div>;
@@ -36,7 +51,11 @@ function App() {
         <Topcontainer>
           <div className="nav">
             <img src="/images/logo.svg" alt="" className="logo" />
-            <input type="text" placeholder="Search Food...." />
+            <input
+              type="text"
+              placeholder="Search Food...."
+              onChange={searchFun}
+            />
           </div>
           <div className="selection">
             <button>All</button>
@@ -45,7 +64,7 @@ function App() {
             <button>Dinner</button>
           </div>
         </Topcontainer>
-        <Food_Container   data={data}/>
+        <Food_Container data={FilterData} />
       </Maincontainer>
     </>
   );

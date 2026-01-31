@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components' 
-import { BASE_URL } from '../App'
+import React from "react";
+import styled from "styled-components";
+import { BASE_URL } from "../App";
 
 function Food_Container({ data: Foods }) {
   return (
@@ -12,9 +12,9 @@ function Food_Container({ data: Foods }) {
               <img src={BASE_URL + food.image} alt={food.name} />
             </div>
             <div className="food_info">
-                <h3>{food.name}</h3>
-                <p> {food.text}</p>
-                <button>${food.price.toFixed(2)}</button>
+              <h3>{food.name}</h3>
+              <p> {food.text}</p>
+              <button>${food.price.toFixed(2)}</button>
             </div>
           </FoodCard>
         ))}
@@ -23,7 +23,7 @@ function Food_Container({ data: Foods }) {
   );
 }
 
-export default Food_Container
+export default Food_Container;
 
 const FoodContainer = styled.div`
   background-image: url("/images/bg.png");
@@ -31,7 +31,6 @@ const FoodContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
 `;
 const FoodCards = styled.div`
   display: flex;
@@ -40,14 +39,15 @@ const FoodCards = styled.div`
   column-gap: 20px;
   justify-content: center;
   align-items: center;
-  padding-top: 80px;
+  padding: 10px;
 `;
 const FoodCard = styled.div`
   width: 340px;
-  height: 167px;
+  height: 150px;
   border: 0.66px solid;
 
-  border-image-source: radial-gradient(
+  border-image-source:
+    radial-gradient(
       80.69% 208.78% at 108.28% 112.58%,
       #eabfff 0%,
       rgba(135, 38, 183, 0) 100%
@@ -58,7 +58,8 @@ const FoodCard = styled.div`
       rgba(255, 255, 255, 0) 100%
     );
 
-  background: url(.png),
+  background:
+    url(.png),
     radial-gradient(
       90.16% 143.01% at 15.32% 21.04%,
       rgba(165, 239, 255, 0.2) 0%,
@@ -77,7 +78,6 @@ const FoodCard = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: end;
     h3 {
       margin-top: 8px;
       font-size: 16px;
