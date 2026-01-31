@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import styled from "styled-components";
+import Food_Container from "./componenets/Food_Container";
 export const BASE_URL = "http://localhost:9000";
 
 function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [FilterData, setFilterData] = useState(null);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -17,6 +19,7 @@ function App() {
         const json = await response.json();
         console.log(json);
         setData(json);
+        setFilterData(json);
         setLoading(false);
       } catch (error) {
         setError("unable to fetch data");
@@ -26,6 +29,20 @@ function App() {
     fetchdata();
   }, []);
 
+  const searchFun = (e) => {
+    const searchValue = e.target.value;
+    console.log(searchValue);
+
+    if (searchValue == "") {
+      setFilterData(data);
+    } else {
+      const Filter = data?.filter((food) =>
+        food.name.toLowerCase().includes(searchValue.toLowerCase()),
+      );
+      setFilterData(Filter);
+    }
+  };
+
   if (error) return <div>{error}</div>;
   if (loading) return <div>loading</div>;
   return (
@@ -34,7 +51,11 @@ function App() {
         <Topcontainer>
           <div className="nav">
             <img src="/images/logo.svg" alt="" className="logo" />
-            <input type="text" placeholder="Search Food...." />
+            <input
+              type="text"
+              placeholder="Search Food...."
+              onChange={searchFun}
+            />
           </div>
           <div className="selection">
             <button>All</button>
@@ -43,7 +64,7 @@ function App() {
             <button>Dinner</button>
           </div>
         </Topcontainer>
-        <FoodContainer></FoodContainer>
+        <Food_Container data={FilterData} />
       </Maincontainer>
     </>
   );
@@ -97,8 +118,4 @@ const Topcontainer = styled.section`
       cursor: pointer;
     }
   }
-`;
-const FoodContainer = styled.div`
-  background-image: url("/images/bg.png");
-  flex: 1;
 `;
